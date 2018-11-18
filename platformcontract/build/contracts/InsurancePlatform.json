@@ -5,54 +5,39 @@
       "constant": false,
       "inputs": [
         {
-          "name": "share",
+          "name": "_id",
           "type": "uint256"
+        },
+        {
+          "name": "_data",
+          "type": "string"
         }
       ],
-      "name": "updateShares",
+      "name": "register_insuree",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "addr",
-          "type": "address"
-        }
-      ],
-      "name": "getShares",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b50610199806100206000396000f30060806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063b660846714610051578063f04da65b1461007e575b600080fd5b34801561005d57600080fd5b5061007c600480360381019080803590602001909291905050506100d5565b005b34801561008a57600080fd5b506100bf600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610125565b6040518082815260200191505060405180910390f35b806100df33610125565b016000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555050565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490509190505600a165627a7a72305820e8f99569ba4a7c6c62f594ee36bf9c2c4d6cf7c91ee5b8cdd631e3b7b76ac2130029",
-  "deployedBytecode": "0x60806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063b660846714610051578063f04da65b1461007e575b600080fd5b34801561005d57600080fd5b5061007c600480360381019080803590602001909291905050506100d5565b005b34801561008a57600080fd5b506100bf600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610125565b6040518082815260200191505060405180910390f35b806100df33610125565b016000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555050565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205490509190505600a165627a7a72305820e8f99569ba4a7c6c62f594ee36bf9c2c4d6cf7c91ee5b8cdd631e3b7b76ac2130029",
-  "sourceMap": "24:267:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;24:267:1;;;;;;;",
-  "deployedSourceMap": "24:267:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;93:102;;8:9:-1;5:2;;;30:1;27;20:12;5:2;93:102:1;;;;;;;;;;;;;;;;;;;;;;;;;;200:89;;8:9:-1;5:2;;;30:1;27;20:12;5:2;200:89:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;93:102;185:5;161:21;171:10;161:9;:21::i;:::-;:29;140:6;:18;147:10;140:18;;;;;;;;;;;;;;;:50;;;;93:102;:::o;200:89::-;253:4;272:6;:12;279:4;272:12;;;;;;;;;;;;;;;;265:19;;200:89;;;:::o",
-  "source": "pragma solidity ^0.4.8;\ncontract InsurancePlatform {\n  mapping (address => uint) shares;\n \n  function updateShares(uint share) public {\n    shares[msg.sender] = getShares(msg.sender) + share;\n  }\n \n  function getShares(address addr) public view returns(uint) {\n    return shares[addr];\n  }\n}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060e48061001f6000396000f300608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063f0810191146044575b600080fd5b348015604f57600080fd5b5060b260048036038101908080359060200190929190803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919291929050505060b4565b005b50505600a165627a7a7230582051320872a13374723feb8eb042e5c567211aab20ea2e46def43654543e10d2410029",
+  "deployedBytecode": "0x608060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063f0810191146044575b600080fd5b348015604f57600080fd5b5060b260048036038101908080359060200190929190803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919291929050505060b4565b005b50505600a165627a7a7230582051320872a13374723feb8eb042e5c567211aab20ea2e46def43654543e10d2410029",
+  "sourceMap": "26:1552:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:1552:0;;;;;;;",
+  "deployedSourceMap": "26:1552:0:-;;;;;;;;;;;;;;;;;;;;;;;;507:156;;8:9:-1;5:2;;;30:1;27;20:12;5:2;507:156:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.8;\n\n\ncontract InsurancePlatform {\n\n\tenum Gender {\n\t    Male,\n\t    Female,\n\t    Other\n\t}\n\n\tstruct InsureeData {\n\t\tstring insuree_type;\n\t\taddress eth_address;\n\t\tuint age;\n\t\tGender gender;\n\t\tstring smoking;\n\t\tstring fam_cancer;\n\t\tuint med_bmi;\n\t\tuint assess_act_days_per_week;\n\t\tmapping (string => bool) data_streams;\n\t}\n\n\tstruct AuthorizedInsurances{\n\t\tstring insurane_name;\n\t}\n\n\tmapping (uint =>InsureeData) insuree_data;\n\n\tmapping (uint =>AuthorizedInsurances) authorized_insurances;\n\n\tfunction register_insuree (uint _id, string _data) {\n\t\t//insuree_data(_id) = InsureeData(_data);\n\t\t//insuree_data(_id).eth_address= msg.sender;\n\t\treturn;\n\t}\n\n\t// function request_data\n\t// function update_data_from_client(uint _id, string _data_stream) public {\n\t// \tanonymized_data = _data_stream;\n\t// }\n\n\t// function updateShares(uint _share) public {\n\t// \tshares[msg.sender] = getShares(msg.sender) + _share;\n\t// }\n\n\t// function getShares(address _addr) public view returns(uint) {\n\t// \treturn shares[_addr];\n\t// }\n\n  //function testNestedMappings() {\n    //@log test nested mappings\n    //mymap[1][2] = 42;\n    //@log mymap[1][2] = `uint mymap[1][2]`\n    //@log test struct array:\n    //@log someName[msg.sender][1].length = `uint someName[msg.sender][1].length`\n    //@log incrementing length\n    // someName[msg.sender][1].length++;\n    // //@log saving timestamp to last entry\n    // someName[msg.sender][1][someName[msg.sender][1].length - 1].timestamp = block.timestamp;\n    // //@log `uint someName[msg.sender][1][someName[msg.sender][1].length-1].timestamp`\n  }\n",
   "sourcePath": "/home/basilev/code/aiahackathaon/platformcontract/contracts/Platform.sol",
   "ast": {
     "absolutePath": "/home/basilev/code/aiahackathaon/platformcontract/contracts/Platform.sol",
     "exportedSymbols": {
       "InsurancePlatform": [
-        93
+        47
       ]
     },
-    "id": 94,
+    "id": 48,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 58,
+        "id": 1,
         "literals": [
           "solidity",
           "^",
@@ -60,7 +45,7 @@
           ".8"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:1"
+        "src": "0:23:0"
       },
       {
         "baseContracts": [],
@@ -68,52 +53,431 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 93,
+        "id": 47,
         "linearizedBaseContracts": [
-          93
+          47
         ],
         "name": "InsurancePlatform",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "constant": false,
-            "id": 62,
-            "name": "shares",
-            "nodeType": "VariableDeclaration",
-            "scope": 93,
-            "src": "55:32:1",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-              "typeString": "mapping(address => uint256)"
-            },
-            "typeName": {
-              "id": 61,
-              "keyType": {
-                "id": 59,
-                "name": "address",
-                "nodeType": "ElementaryTypeName",
-                "src": "64:7:1",
+            "canonicalName": "InsurancePlatform.Gender",
+            "id": 5,
+            "members": [
+              {
+                "id": 2,
+                "name": "Male",
+                "nodeType": "EnumValue",
+                "src": "76:4:0"
+              },
+              {
+                "id": 3,
+                "name": "Female",
+                "nodeType": "EnumValue",
+                "src": "87:6:0"
+              },
+              {
+                "id": 4,
+                "name": "Other",
+                "nodeType": "EnumValue",
+                "src": "100:5:0"
+              }
+            ],
+            "name": "Gender",
+            "nodeType": "EnumDefinition",
+            "src": "57:51:0"
+          },
+          {
+            "canonicalName": "InsurancePlatform.InsureeData",
+            "id": 26,
+            "members": [
+              {
+                "constant": false,
+                "id": 7,
+                "name": "insuree_type",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "134:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 6,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "134:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 9,
+                "name": "eth_address",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "157:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
-                }
+                },
+                "typeName": {
+                  "id": 8,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "157:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
               },
-              "nodeType": "Mapping",
-              "src": "55:25:1",
-              "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                "typeString": "mapping(address => uint256)"
-              },
-              "valueType": {
-                "id": 60,
-                "name": "uint",
-                "nodeType": "ElementaryTypeName",
-                "src": "75:4:1",
+              {
+                "constant": false,
+                "id": 11,
+                "name": "age",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "180:8:0",
+                "stateVariable": false,
+                "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "180:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13,
+                "name": "gender",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "192:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_Gender_$5",
+                  "typeString": "enum InsurancePlatform.Gender"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 12,
+                  "name": "Gender",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 5,
+                  "src": "192:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Gender_$5",
+                    "typeString": "enum InsurancePlatform.Gender"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 15,
+                "name": "smoking",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "209:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 14,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "209:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 17,
+                "name": "fam_cancer",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "227:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 16,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "227:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 19,
+                "name": "med_bmi",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "248:12:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 18,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "248:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21,
+                "name": "assess_act_days_per_week",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "264:29:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 20,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "264:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 25,
+                "name": "data_streams",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "297:37:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_string_memory_$_t_bool_$",
+                  "typeString": "mapping(string => bool)"
+                },
+                "typeName": {
+                  "id": 24,
+                  "keyType": {
+                    "id": 22,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "306:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "297:24:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_string_memory_$_t_bool_$",
+                    "typeString": "mapping(string => bool)"
+                  },
+                  "valueType": {
+                    "id": 23,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "316:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "InsureeData",
+            "nodeType": "StructDefinition",
+            "scope": 47,
+            "src": "111:227:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "InsurancePlatform.AuthorizedInsurances",
+            "id": 29,
+            "members": [
+              {
+                "constant": false,
+                "id": 28,
+                "name": "insurane_name",
+                "nodeType": "VariableDeclaration",
+                "scope": 29,
+                "src": "372:20:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 27,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "372:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "AuthorizedInsurances",
+            "nodeType": "StructDefinition",
+            "scope": 47,
+            "src": "341:55:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 33,
+            "name": "insuree_data",
+            "nodeType": "VariableDeclaration",
+            "scope": 47,
+            "src": "399:41:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsureeData_$26_storage_$",
+              "typeString": "mapping(uint256 => struct InsurancePlatform.InsureeData)"
+            },
+            "typeName": {
+              "id": 32,
+              "keyType": {
+                "id": 30,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "408:4:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "399:28:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsureeData_$26_storage_$",
+                "typeString": "mapping(uint256 => struct InsurancePlatform.InsureeData)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 31,
+                "name": "InsureeData",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 26,
+                "src": "415:11:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_InsureeData_$26_storage_ptr",
+                  "typeString": "struct InsurancePlatform.InsureeData"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 37,
+            "name": "authorized_insurances",
+            "nodeType": "VariableDeclaration",
+            "scope": 47,
+            "src": "444:59:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AuthorizedInsurances_$29_storage_$",
+              "typeString": "mapping(uint256 => struct InsurancePlatform.AuthorizedInsurances)"
+            },
+            "typeName": {
+              "id": 36,
+              "keyType": {
+                "id": 34,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "453:4:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "444:37:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AuthorizedInsurances_$29_storage_$",
+                "typeString": "mapping(uint256 => struct InsurancePlatform.AuthorizedInsurances)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 35,
+                "name": "AuthorizedInsurances",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 29,
+                "src": "460:20:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_AuthorizedInsurances_$29_storage_ptr",
+                  "typeString": "struct InsurancePlatform.AuthorizedInsurances"
                 }
               }
             },
@@ -122,204 +486,38 @@
           },
           {
             "body": {
-              "id": 79,
+              "id": 45,
               "nodeType": "Block",
-              "src": "134:61:1",
+              "src": "558:105:0",
               "statements": [
                 {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 77,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftHandSide": {
-                      "argumentTypes": null,
-                      "baseExpression": {
-                        "argumentTypes": null,
-                        "id": 67,
-                        "name": "shares",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 62,
-                        "src": "140:6:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                          "typeString": "mapping(address => uint256)"
-                        }
-                      },
-                      "id": 70,
-                      "indexExpression": {
-                        "argumentTypes": null,
-                        "expression": {
-                          "argumentTypes": null,
-                          "id": 68,
-                          "name": "msg",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 108,
-                          "src": "147:3:1",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_magic_message",
-                            "typeString": "msg"
-                          }
-                        },
-                        "id": 69,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "memberName": "sender",
-                        "nodeType": "MemberAccess",
-                        "referencedDeclaration": null,
-                        "src": "147:10:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_address",
-                          "typeString": "address"
-                        }
-                      },
-                      "isConstant": false,
-                      "isLValue": true,
-                      "isPure": false,
-                      "lValueRequested": true,
-                      "nodeType": "IndexAccess",
-                      "src": "140:18:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "=",
-                    "rightHandSide": {
-                      "argumentTypes": null,
-                      "commonType": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      },
-                      "id": 76,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": false,
-                      "lValueRequested": false,
-                      "leftExpression": {
-                        "argumentTypes": null,
-                        "arguments": [
-                          {
-                            "argumentTypes": null,
-                            "expression": {
-                              "argumentTypes": null,
-                              "id": 72,
-                              "name": "msg",
-                              "nodeType": "Identifier",
-                              "overloadedDeclarations": [],
-                              "referencedDeclaration": 108,
-                              "src": "171:3:1",
-                              "typeDescriptions": {
-                                "typeIdentifier": "t_magic_message",
-                                "typeString": "msg"
-                              }
-                            },
-                            "id": 73,
-                            "isConstant": false,
-                            "isLValue": false,
-                            "isPure": false,
-                            "lValueRequested": false,
-                            "memberName": "sender",
-                            "nodeType": "MemberAccess",
-                            "referencedDeclaration": null,
-                            "src": "171:10:1",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_address",
-                              "typeString": "address"
-                            }
-                          }
-                        ],
-                        "expression": {
-                          "argumentTypes": [
-                            {
-                              "typeIdentifier": "t_address",
-                              "typeString": "address"
-                            }
-                          ],
-                          "id": 71,
-                          "name": "getShares",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 92,
-                          "src": "161:9:1",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_uint256_$",
-                            "typeString": "function (address) view returns (uint256)"
-                          }
-                        },
-                        "id": 74,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "kind": "functionCall",
-                        "lValueRequested": false,
-                        "names": [],
-                        "nodeType": "FunctionCall",
-                        "src": "161:21:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      "nodeType": "BinaryOperation",
-                      "operator": "+",
-                      "rightExpression": {
-                        "argumentTypes": null,
-                        "id": 75,
-                        "name": "share",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 64,
-                        "src": "185:5:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      "src": "161:29:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "src": "140:50:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "id": 78,
-                  "nodeType": "ExpressionStatement",
-                  "src": "140:50:1"
+                  "expression": null,
+                  "functionReturnParameters": 43,
+                  "id": 44,
+                  "nodeType": "Return",
+                  "src": "653:7:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 80,
+            "id": 46,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [],
-            "name": "updateShares",
+            "name": "register_insuree",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 65,
+              "id": 42,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 64,
-                  "name": "share",
+                  "id": 39,
+                  "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 80,
-                  "src": "115:10:1",
+                  "scope": 46,
+                  "src": "534:8:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -327,10 +525,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 63,
+                    "id": 38,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "115:4:1",
+                    "src": "534:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -338,177 +536,68 @@
                   },
                   "value": null,
                   "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 41,
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 46,
+                  "src": "544:12:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 40,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "544:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
                 }
               ],
-              "src": "114:12:1"
+              "src": "533:24:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 66,
+              "id": 43,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "134:0:1"
+              "src": "558:0:0"
             },
-            "scope": 93,
-            "src": "93:102:1",
+            "scope": 47,
+            "src": "507:156:0",
             "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 91,
-              "nodeType": "Block",
-              "src": "259:30:1",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "baseExpression": {
-                      "argumentTypes": null,
-                      "id": 87,
-                      "name": "shares",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 62,
-                      "src": "272:6:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                        "typeString": "mapping(address => uint256)"
-                      }
-                    },
-                    "id": 89,
-                    "indexExpression": {
-                      "argumentTypes": null,
-                      "id": 88,
-                      "name": "addr",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 82,
-                      "src": "279:4:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_address",
-                        "typeString": "address"
-                      }
-                    },
-                    "isConstant": false,
-                    "isLValue": true,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "nodeType": "IndexAccess",
-                    "src": "272:12:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "functionReturnParameters": 86,
-                  "id": 90,
-                  "nodeType": "Return",
-                  "src": "265:19:1"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 92,
-            "implemented": true,
-            "isConstructor": false,
-            "isDeclaredConst": true,
-            "modifiers": [],
-            "name": "getShares",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 83,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 82,
-                  "name": "addr",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 92,
-                  "src": "219:12:1",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 81,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "219:7:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "218:14:1"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 86,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 85,
-                  "name": "",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 92,
-                  "src": "253:4:1",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 84,
-                    "name": "uint",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "253:4:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "252:6:1"
-            },
-            "scope": 93,
-            "src": "200:89:1",
-            "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 94,
-        "src": "24:267:1"
+        "scope": 48,
+        "src": "26:1552:0"
       }
     ],
-    "src": "0:291:1"
+    "src": "0:1579:0"
   },
   "legacyAST": {
     "absolutePath": "/home/basilev/code/aiahackathaon/platformcontract/contracts/Platform.sol",
     "exportedSymbols": {
       "InsurancePlatform": [
-        93
+        47
       ]
     },
-    "id": 94,
+    "id": 48,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 58,
+        "id": 1,
         "literals": [
           "solidity",
           "^",
@@ -516,7 +605,7 @@
           ".8"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:1"
+        "src": "0:23:0"
       },
       {
         "baseContracts": [],
@@ -524,52 +613,431 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 93,
+        "id": 47,
         "linearizedBaseContracts": [
-          93
+          47
         ],
         "name": "InsurancePlatform",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "constant": false,
-            "id": 62,
-            "name": "shares",
-            "nodeType": "VariableDeclaration",
-            "scope": 93,
-            "src": "55:32:1",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-              "typeString": "mapping(address => uint256)"
-            },
-            "typeName": {
-              "id": 61,
-              "keyType": {
-                "id": 59,
-                "name": "address",
-                "nodeType": "ElementaryTypeName",
-                "src": "64:7:1",
+            "canonicalName": "InsurancePlatform.Gender",
+            "id": 5,
+            "members": [
+              {
+                "id": 2,
+                "name": "Male",
+                "nodeType": "EnumValue",
+                "src": "76:4:0"
+              },
+              {
+                "id": 3,
+                "name": "Female",
+                "nodeType": "EnumValue",
+                "src": "87:6:0"
+              },
+              {
+                "id": 4,
+                "name": "Other",
+                "nodeType": "EnumValue",
+                "src": "100:5:0"
+              }
+            ],
+            "name": "Gender",
+            "nodeType": "EnumDefinition",
+            "src": "57:51:0"
+          },
+          {
+            "canonicalName": "InsurancePlatform.InsureeData",
+            "id": 26,
+            "members": [
+              {
+                "constant": false,
+                "id": 7,
+                "name": "insuree_type",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "134:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 6,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "134:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 9,
+                "name": "eth_address",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "157:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
-                }
+                },
+                "typeName": {
+                  "id": 8,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "157:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
               },
-              "nodeType": "Mapping",
-              "src": "55:25:1",
-              "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                "typeString": "mapping(address => uint256)"
-              },
-              "valueType": {
-                "id": 60,
-                "name": "uint",
-                "nodeType": "ElementaryTypeName",
-                "src": "75:4:1",
+              {
+                "constant": false,
+                "id": 11,
+                "name": "age",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "180:8:0",
+                "stateVariable": false,
+                "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 10,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "180:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 13,
+                "name": "gender",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "192:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_Gender_$5",
+                  "typeString": "enum InsurancePlatform.Gender"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 12,
+                  "name": "Gender",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 5,
+                  "src": "192:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_Gender_$5",
+                    "typeString": "enum InsurancePlatform.Gender"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 15,
+                "name": "smoking",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "209:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 14,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "209:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 17,
+                "name": "fam_cancer",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "227:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 16,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "227:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 19,
+                "name": "med_bmi",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "248:12:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 18,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "248:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21,
+                "name": "assess_act_days_per_week",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "264:29:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 20,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "264:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 25,
+                "name": "data_streams",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "297:37:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_string_memory_$_t_bool_$",
+                  "typeString": "mapping(string => bool)"
+                },
+                "typeName": {
+                  "id": 24,
+                  "keyType": {
+                    "id": 22,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "306:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "297:24:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_string_memory_$_t_bool_$",
+                    "typeString": "mapping(string => bool)"
+                  },
+                  "valueType": {
+                    "id": 23,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "316:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "InsureeData",
+            "nodeType": "StructDefinition",
+            "scope": 47,
+            "src": "111:227:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "InsurancePlatform.AuthorizedInsurances",
+            "id": 29,
+            "members": [
+              {
+                "constant": false,
+                "id": 28,
+                "name": "insurane_name",
+                "nodeType": "VariableDeclaration",
+                "scope": 29,
+                "src": "372:20:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 27,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "372:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "AuthorizedInsurances",
+            "nodeType": "StructDefinition",
+            "scope": 47,
+            "src": "341:55:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 33,
+            "name": "insuree_data",
+            "nodeType": "VariableDeclaration",
+            "scope": 47,
+            "src": "399:41:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsureeData_$26_storage_$",
+              "typeString": "mapping(uint256 => struct InsurancePlatform.InsureeData)"
+            },
+            "typeName": {
+              "id": 32,
+              "keyType": {
+                "id": 30,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "408:4:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "399:28:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_InsureeData_$26_storage_$",
+                "typeString": "mapping(uint256 => struct InsurancePlatform.InsureeData)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 31,
+                "name": "InsureeData",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 26,
+                "src": "415:11:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_InsureeData_$26_storage_ptr",
+                  "typeString": "struct InsurancePlatform.InsureeData"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 37,
+            "name": "authorized_insurances",
+            "nodeType": "VariableDeclaration",
+            "scope": 47,
+            "src": "444:59:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AuthorizedInsurances_$29_storage_$",
+              "typeString": "mapping(uint256 => struct InsurancePlatform.AuthorizedInsurances)"
+            },
+            "typeName": {
+              "id": 36,
+              "keyType": {
+                "id": 34,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "453:4:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "444:37:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AuthorizedInsurances_$29_storage_$",
+                "typeString": "mapping(uint256 => struct InsurancePlatform.AuthorizedInsurances)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 35,
+                "name": "AuthorizedInsurances",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 29,
+                "src": "460:20:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_AuthorizedInsurances_$29_storage_ptr",
+                  "typeString": "struct InsurancePlatform.AuthorizedInsurances"
                 }
               }
             },
@@ -578,204 +1046,38 @@
           },
           {
             "body": {
-              "id": 79,
+              "id": 45,
               "nodeType": "Block",
-              "src": "134:61:1",
+              "src": "558:105:0",
               "statements": [
                 {
-                  "expression": {
-                    "argumentTypes": null,
-                    "id": 77,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftHandSide": {
-                      "argumentTypes": null,
-                      "baseExpression": {
-                        "argumentTypes": null,
-                        "id": 67,
-                        "name": "shares",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 62,
-                        "src": "140:6:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                          "typeString": "mapping(address => uint256)"
-                        }
-                      },
-                      "id": 70,
-                      "indexExpression": {
-                        "argumentTypes": null,
-                        "expression": {
-                          "argumentTypes": null,
-                          "id": 68,
-                          "name": "msg",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 108,
-                          "src": "147:3:1",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_magic_message",
-                            "typeString": "msg"
-                          }
-                        },
-                        "id": 69,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "memberName": "sender",
-                        "nodeType": "MemberAccess",
-                        "referencedDeclaration": null,
-                        "src": "147:10:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_address",
-                          "typeString": "address"
-                        }
-                      },
-                      "isConstant": false,
-                      "isLValue": true,
-                      "isPure": false,
-                      "lValueRequested": true,
-                      "nodeType": "IndexAccess",
-                      "src": "140:18:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "=",
-                    "rightHandSide": {
-                      "argumentTypes": null,
-                      "commonType": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      },
-                      "id": 76,
-                      "isConstant": false,
-                      "isLValue": false,
-                      "isPure": false,
-                      "lValueRequested": false,
-                      "leftExpression": {
-                        "argumentTypes": null,
-                        "arguments": [
-                          {
-                            "argumentTypes": null,
-                            "expression": {
-                              "argumentTypes": null,
-                              "id": 72,
-                              "name": "msg",
-                              "nodeType": "Identifier",
-                              "overloadedDeclarations": [],
-                              "referencedDeclaration": 108,
-                              "src": "171:3:1",
-                              "typeDescriptions": {
-                                "typeIdentifier": "t_magic_message",
-                                "typeString": "msg"
-                              }
-                            },
-                            "id": 73,
-                            "isConstant": false,
-                            "isLValue": false,
-                            "isPure": false,
-                            "lValueRequested": false,
-                            "memberName": "sender",
-                            "nodeType": "MemberAccess",
-                            "referencedDeclaration": null,
-                            "src": "171:10:1",
-                            "typeDescriptions": {
-                              "typeIdentifier": "t_address",
-                              "typeString": "address"
-                            }
-                          }
-                        ],
-                        "expression": {
-                          "argumentTypes": [
-                            {
-                              "typeIdentifier": "t_address",
-                              "typeString": "address"
-                            }
-                          ],
-                          "id": 71,
-                          "name": "getShares",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 92,
-                          "src": "161:9:1",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_uint256_$",
-                            "typeString": "function (address) view returns (uint256)"
-                          }
-                        },
-                        "id": 74,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "kind": "functionCall",
-                        "lValueRequested": false,
-                        "names": [],
-                        "nodeType": "FunctionCall",
-                        "src": "161:21:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      "nodeType": "BinaryOperation",
-                      "operator": "+",
-                      "rightExpression": {
-                        "argumentTypes": null,
-                        "id": 75,
-                        "name": "share",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 64,
-                        "src": "185:5:1",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_uint256",
-                          "typeString": "uint256"
-                        }
-                      },
-                      "src": "161:29:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "src": "140:50:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "id": 78,
-                  "nodeType": "ExpressionStatement",
-                  "src": "140:50:1"
+                  "expression": null,
+                  "functionReturnParameters": 43,
+                  "id": 44,
+                  "nodeType": "Return",
+                  "src": "653:7:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 80,
+            "id": 46,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": false,
             "modifiers": [],
-            "name": "updateShares",
+            "name": "register_insuree",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 65,
+              "id": 42,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 64,
-                  "name": "share",
+                  "id": 39,
+                  "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 80,
-                  "src": "115:10:1",
+                  "scope": 46,
+                  "src": "534:8:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -783,10 +1085,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 63,
+                    "id": 38,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "115:4:1",
+                    "src": "534:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -794,164 +1096,55 @@
                   },
                   "value": null,
                   "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 41,
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 46,
+                  "src": "544:12:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 40,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "544:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
                 }
               ],
-              "src": "114:12:1"
+              "src": "533:24:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 66,
+              "id": 43,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "134:0:1"
+              "src": "558:0:0"
             },
-            "scope": 93,
-            "src": "93:102:1",
+            "scope": 47,
+            "src": "507:156:0",
             "stateMutability": "nonpayable",
-            "superFunction": null,
-            "visibility": "public"
-          },
-          {
-            "body": {
-              "id": 91,
-              "nodeType": "Block",
-              "src": "259:30:1",
-              "statements": [
-                {
-                  "expression": {
-                    "argumentTypes": null,
-                    "baseExpression": {
-                      "argumentTypes": null,
-                      "id": 87,
-                      "name": "shares",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 62,
-                      "src": "272:6:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
-                        "typeString": "mapping(address => uint256)"
-                      }
-                    },
-                    "id": 89,
-                    "indexExpression": {
-                      "argumentTypes": null,
-                      "id": 88,
-                      "name": "addr",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 82,
-                      "src": "279:4:1",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_address",
-                        "typeString": "address"
-                      }
-                    },
-                    "isConstant": false,
-                    "isLValue": true,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "nodeType": "IndexAccess",
-                    "src": "272:12:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "functionReturnParameters": 86,
-                  "id": 90,
-                  "nodeType": "Return",
-                  "src": "265:19:1"
-                }
-              ]
-            },
-            "documentation": null,
-            "id": 92,
-            "implemented": true,
-            "isConstructor": false,
-            "isDeclaredConst": true,
-            "modifiers": [],
-            "name": "getShares",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 83,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 82,
-                  "name": "addr",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 92,
-                  "src": "219:12:1",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 81,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "219:7:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "218:14:1"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 86,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 85,
-                  "name": "",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 92,
-                  "src": "253:4:1",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 84,
-                    "name": "uint",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "253:4:1",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "value": null,
-                  "visibility": "internal"
-                }
-              ],
-              "src": "252:6:1"
-            },
-            "scope": 93,
-            "src": "200:89:1",
-            "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 94,
-        "src": "24:267:1"
+        "scope": 48,
+        "src": "26:1552:0"
       }
     ],
-    "src": "0:291:1"
+    "src": "0:1579:0"
   },
   "compiler": {
     "name": "solc",
@@ -966,5 +1159,5 @@
     }
   },
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-11-18T01:29:29.656Z"
+  "updatedAt": "2018-11-18T04:33:56.856Z"
 }
