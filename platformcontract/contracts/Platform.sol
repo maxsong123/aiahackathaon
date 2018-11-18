@@ -61,7 +61,7 @@ contract InsurancePlatform {
 		return true;
 	}
 
-	function upstream_data_from_client(uint _id, string _smoking, string _fam_cancer, 
+	function upload_data_from_client(uint _id, string _smoking, string _fam_cancer, 
 		uint _med_bmi, uint _assess_act_days_per_week) public returns (string) {
 		require(insuree_data[_id].eth_address == msg.sender, 
 			"Only the client account owner can upload data");
@@ -74,6 +74,9 @@ contract InsurancePlatform {
 	function request_data_from_client(uint _insurance_id, string _data_type) public view returns(string) {
 
 		require(msg.sender == authorized_insurances_id, "only authorized insurances can claim this data");
+		// this is just a mockup data string, the real function should do the following
+		// - check what data_streams the insurance has access to for each customer
+		// - pull the data from these authorized lists
 		if (compareStrings(_data_type, "steps") == true) {
 			return data_string;
 		}
